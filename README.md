@@ -1,5 +1,7 @@
 # Packet Tracer Agent
 
+[![Checks](https://github.com/safdev758/agentpackettracer/actions/workflows/ci.yml/badge.svg)](https://github.com/safdev758/agentpackettracer/actions/workflows/ci.yml)
+
 An AI assistant inside Cisco Packet Tracer, backed by a local Python service. Inspect a lab, plan changes, configure devices and verify actual CLI results without modifying Cisco's executable.
 
 **Status:** experimental Linux release, tested with Packet Tracer 9.0.0.0810. Windows is planned. Backend version 0.2.6; native module/UI version 0.2.5. This is an independent project, not an official Cisco or OpenAI product.
@@ -54,6 +56,8 @@ The activity panel pairs tool starts/results, loads details lazily, bounds close
 | Observed failures, fixes and remaining limitations | [Known issues](docs/KNOWN_ISSUES.md) |
 | Actual checks and their limits | [Validation](VALIDATION.md) |
 | Platform blockers and acceptance criteria | [Windows roadmap](docs/WINDOWS.md) |
+| Prioritized work and GitHub issues | [Roadmap](docs/ROADMAP.md) |
+| Release behavior and limitations | [Changelog](CHANGELOG.md) |
 | What to learn, engineering priorities and CV wording | [Engineering guide](docs/ENGINEERING_GUIDE.md) |
 | License choice and dependency boundaries | [Licensing](docs/LICENSING.md), [third-party notices](THIRD_PARTY_NOTICES.md) |
 | Development and reporting | [Contributing](CONTRIBUTING.md), [security](SECURITY.md) |

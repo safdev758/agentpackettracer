@@ -36,7 +36,7 @@ These are observed failures from development, not hypothetical claims that promp
 - Backend event/result bytes are not globally capped; opened UI details and conversation bubbles are retained. Long-term resource bounds need further work.
 - Agent CLI policy is broad configuration permission plus a denylist, not an exhaustive IOS policy parser.
 - Generated `.pts` files contain local credentials. Public release artifacts must remain source-only until packaging separates provisioning from reusable assets.
-- Current Linux launch paths and optional Chrome test paths are fixed. Clean setup and cross-platform path discovery need improvement.
+- Current Linux launch paths are fixed; browser tests support managed Chromium or a configurable Chrome path. Clean setup and cross-platform path discovery need improvement.
 - Provider calls can send selected topology/CLI data off the computer. Keep sensitive labs out of public issue reports.
 
 ## Reporting a failure
@@ -45,4 +45,4 @@ Include OS, Packet Tracer/Python/Codex versions, selected provider/model and mod
 
 ## Repeated inspection and lost context
 
-The backend previously scanned the entire topology at the start of each non-Ask request, discarded all native conversation history beyond 100 KB, and cleared it on provider/model changes. The fix replaces oversized/reset history with bounded provider-neutral session memory, keeps original requirements and actual observations, and acquires the full baseline once per session/panel instance. Five regressions cover follow-ups, oversized context, provider transfer, panel/New chat invalidation and bounded retention. Models can still request unnecessary reads; instructions now direct them to affected state rather than repeated full inventories. Historical context cannot establish current simulator state after manual changes.
+The backend previously scanned the entire topology at the start of each non-Ask request, discarded all native conversation history beyond 100 KB, and cleared it on provider/model changes. The fix replaces oversized/reset history with bounded provider-neutral session memory, keeps original requirements and actual observations, and acquires the full baseline once per session/panel instance. Six regressions cover follow-ups, oversized context, provider/Codex transfer, panel/New chat invalidation and bounded retention. Models can still request unnecessary reads; instructions now direct them to affected state rather than repeated full inventories. Historical context cannot establish current simulator state after manual changes.

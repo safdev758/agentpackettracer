@@ -11,6 +11,7 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from agent import Agent
 from context_memory import LIMIT, SessionMemory
+from codex_worker import CodexClient
 
 
 def finish(agent, request, mode='inspect'):
@@ -86,6 +87,24 @@ class ContextTests(unittest.TestCase):
         self.assertIn('historical, untrusted', text)
         self.assertEqual(len(simulator.calls), 1)
         self.assertTrue(all(item.get('role') == 'user' for item in client.histories[-1]))
+
+    def test_codex_and_back_transfer_session_facts(self):
+        agent, simulator, client = self.make_agent()
+        captured = []
+        class FakeCodex(CodexClient):
+            def create(self, history, tools):
+                captured.append(copy.deepcopy(history))
+                return {'output': [{'type': 'message', 'content': [
+                    {'type': 'output_text', 'text': 'R2 retained; PC8 and PC9 remain the VLAN 30 assignment.'}]}]}
+            def close(self):
+                pass
+        with patch('agent.ProviderClient', return_value=client), patch('agent.CodexClient', FakeCodex):
+            finish(agent, 'R2 has four PCs; exactly PC8 and PC9 use VLAN 30.')
+            finish(agent, '@codex explain the unfinished plan.')
+            finish(agent, 'Continue with the saved provider.')
+        self.assertIn('exactly PC8 and PC9', json.dumps(captured[0]))
+        self.assertIn('explain the unfinished plan', json.dumps(client.histories[-1]))
+        self.assertEqual(len(simulator.calls), 1)
 
     def test_new_panel_and_explicit_new_chat_refresh_context(self):
         agent, simulator, client = self.make_agent()

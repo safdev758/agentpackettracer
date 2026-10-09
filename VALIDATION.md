@@ -4,7 +4,7 @@ Evidence collected on Linux through 2026-10-09. Backend 0.2.6, native module/UI 
 
 | Layer | Evidence | Limit |
 | --- | --- | --- |
-| Python | 37 offline tests: authentication, mode/argument validation, provider payloads, partial context, Codex process/protocol and cancellation | Uses doubles; no real provider quota consumed |
+| Python | 38 offline tests: authentication, mode/argument validation, provider payloads, partial context, Codex process/protocol and cancellation | Uses doubles; no real provider quota consumed |
 | Native controller | Node API-double tests for device/cable calls, CLI output/errors, pagers and ping summaries | Does not replace the native simulator |
 | Browser UI | Headless Chrome mocked-service interaction and performance workloads, 4× CPU throttle, lazy details/cards, row bounds, scroll preservation and responsive composer | Synthetic workload; timing depends on runner |
 | Real Packet Tracer | Creation/cabling, router CLI recovery, VLANs, trunks, subinterfaces, interface states, routes and full ping results | Version/platform specific |

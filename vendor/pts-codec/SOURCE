@@ -1,0 +1,6 @@
+Upstream: https://github.com/A-Town-corp/MCP-Packet-Tracer
+Verified revision: 4a501ef96187cc1dcf5a722e6c16765acba552aa
+Files: offline-tools/{cast256,eax,pts_builder,pts_decrypt,pts_encrypt}.py
+All five local files were compared byte-for-byte against that revision on 2026-10-09.
+Source: https://github.com/A-Town-corp/MCP-Packet-Tracer/tree/4a501ef96187cc1dcf5a722e6c16765acba552aa/offline-tools
+License: MIT; see LICENSE in this directory.

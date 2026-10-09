@@ -1,0 +1,2 @@
+# Optional browser QA only; runtime has no pip dependencies.
+playwright==1.63.0

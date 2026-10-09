@@ -1,0 +1,14 @@
+Packet Tracer Agent
+Copyright 2026 Packet Tracer Agent contributors
+
+Original project source and documentation are licensed under Apache-2.0.
+
+This project includes .pts packaging utilities from:
+https://github.com/A-Town-corp/MCP-Packet-Tracer/tree/main/offline-tools
+Copyright (c) 2026 Mateo - Packet Tracer MCP Server
+Those utilities remain under the MIT license in vendor/pts-codec/LICENSE.
+
+Cisco Packet Tracer, Codex, and the model providers are external products.
+Their names identify integration targets and do not imply endorsement.
+Cisco binaries, documentation, account credentials, and generated private
+extension artifacts are not included in this source distribution.

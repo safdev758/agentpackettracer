@@ -1,0 +1,51 @@
+name: Checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.12', '3.13']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+      - name: Python regressions
+        run: python -m unittest discover -s tests -v
+      - name: Native API doubles
+        run: node tests/test_extension.js
+      - name: Source syntax
+        run: |
+          python -m py_compile agent.py context_memory.py providers.py codex_worker.py build_extension.py install.py install_service.py
+          node --check extension/main.js
+          node --check extension/ui.js
+          bash -n launch.sh
+      - name: Public documentation and release hygiene
+        run: |
+          python scripts/check_docs.py
+          python scripts/check_release.py
+      - name: Package locally without distributing its token
+        run: python build_extension.py
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements-dev.txt
+      - run: python -m playwright install --with-deps chromium
+      - run: python tests/ui_browser.py
+      - run: python tests/ui_performance.py
